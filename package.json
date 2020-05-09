@@ -1,0 +1,20 @@
+{
+  "name": "KXNBOT",
+  "description": "KXNBOT",
+  "version": "2.0.0",
+  "engines": {
+    "node": "10.15.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ascii-table": "0.0.9",
+    "common-tags": "^1.8.0",
+    "discord.js": "^11.5.1",
+    "dotenv": "^6.2.0",
+    "fs": "0.0.1-security",
+    "ms": "^2.1.2"
+  }
+}
