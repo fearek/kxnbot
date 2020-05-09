@@ -16,53 +16,9 @@ client.categories = fs.readdirSync("./komendy/");
 ["command"].forEach(handler => {
     require(`./handlers/${handler}`)(client);
 });
-function aktualizujOsoby() {
-    let serwerKXN = client.guilds.get('633229348060659712');
-    let liczbaOsob = serwerKXN.memberCount;
-    let kanalCzlonkowie = serwerKXN.channels.get('682558658193784882');
-    kanalCzlonkowie.setName('Liczba Członków: '+liczbaOsob).then(result => console.log("Kanal Liczba Czlonkow zmieniony")).catch(err => console.log(err));
-}
-function aktualizujWidzow() {
-    let serwerKXN = client.guilds.get('633229348060659712');
-    let liczbaWidzow = serwerKXN.roles.get('648617707389845531').members.size;
-    let kanalWidzowie = serwerKXN.channels.get('682558704687906863');
-    kanalWidzowie.setName('Widzowie: '+liczbaWidzow).then(result => console.log("Kanal Liczba Widzow zmieniony")).catch(err => console.log(err));
-}
-function aktualizujOnline() {
-    let serwerKXN = client.guilds.get('633229348060659712');
-    let liczbaOnline = serwerKXN.members.filter(m => m.presence.status === 'online').size + serwerKXN.members.filter(m => m.presence.status === 'idle').size + serwerKXN.members.filter(m => m.presence.status === 'dnd').size
-    let kanalOnline = serwerKXN.channels.get('682572761453166716');
-    kanalOnline.setName('Online: '+liczbaOnline).then(result => console.log("Kanal Online zmieniony")).catch(err => console.log(err));
-}
-function backupBazy() {
-    var MyDate = new Date(new Date(Date.now()).getTime() + 120*60*1000)
-   var MyDateString = '';
-   MyDate.setDate(MyDate.getDate());
-   var tempoMonth = (MyDate.getMonth()+1);
-   var tempoDate = (MyDate.getDate());
-   var tempoHour = (MyDate.getHours());
-   var tempoMinutes = (MyDate.getMinutes());
-   var tempoSeconds = (MyDate.getSeconds());
-   if (tempoMonth < 10) tempoMonth = '0' + tempoMonth;
-   if (tempoDate < 10) tempoDate = '0' + tempoDate;
-   if (tempoHour < 10) tempoHour = '0' + tempoHour;
-   if (tempoMinutes < 10) tempoMinutes = '0' + tempoMinutes;
-   if (tempoSeconds < 10) tempoSeconds = '0' + tempoSeconds;
-   MyDateString = tempoDate + '/' + tempoMonth + '/' + MyDate.getFullYear() + " "+tempoHour+":"+tempoMinutes+":"+tempoSeconds;
-    let serwerKXN = client.guilds.get('633229348060659712');
-    let kanalBaza = serwerKXN.channels.get('707511813537005572');
-    kanalBaza.send(`Backup: ${MyDateString}`, { files: ["./warnings.json", "./lock.json", "./ludzie.json", "./blokady.json", "./sloty.json"]})
-}
+
 client.on("ready", () => {
     console.log(`Hi, ${client.user.username} is now online!`);
-    setInterval(aktualizujOsoby, 1200000);
-    setInterval(aktualizujWidzow, 1200000);
-    setInterval(aktualizujOnline, 1200000);
-    setInterval(backupBazy, 86400000)
-    aktualizujOsoby();
-    aktualizujWidzow();
-    aktualizujOnline();
-    backupBazy();
     client.user.setPresence({
         status: "online",
         game: {
@@ -81,9 +37,6 @@ client.on("guildMemberAdd", member => {
     var warnChannel = member.guild.channels.find(`name`, "logi");	
     if (!warnChannel) return console.log("❌ Nie znalazłem kanału do składania zgłoszeń.");	
     warnChannel.send(warnEmbed);
-    let serwerKXN = client.guilds.get('633229348060659712');
-    let kanalOstatni = serwerKXN.channels.get('682558760346189855');
-    kanalOstatni.setName('Ostatni Dołączył: '+member.displayName).then(result => console.log("Kanal Ostatni Dolaczyl zmieniony")).catch(err => console.log(err));
 });
 client.on('guildMemberRemove', member => {	
 
